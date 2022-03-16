@@ -1,31 +1,31 @@
 version: "3.7"
 services:
   nodejs:
-    container_name: blockchain_nodejs
+    container_name: blockchain-app
     build:
       context: ./
-      dockerfile: docker/nodejs/Dockerfile
-    hostname: nodejsserver
+      dockerfile: docker/app/Dockerfile
+    hostname: blockchain.localhost
     volumes:
-      - ./:/usr/src/app
+      - ./src:/usr/src/app
     ports:
-      - "80:8888" 
+      - "3000:3000" 
     networks:
       - project_network
 
-  nginx:
-    container_name: blockchain_nginx
-    image: nginx:alpine
-    hostname: project.localhost
-    tty: true
-    ports:
-      - "81:80"
-    volumes:
-      - ./docker/nginx:/etc/nginx/conf.d/
-    depends_on:
-      - nodejs
-    networks:
-      - project_network
+  # nginx:
+  #   container_name: blockchain_nginx
+  #   image: nginx:alpine
+  #   hostname: project.localhost
+  #   tty: true
+  #   ports:
+  #     - "81:80"
+  #   volumes:
+  #     - ./docker/nginx:/etc/nginx/conf.d/
+  #   depends_on:
+  #     - nodejs
+  #   networks:
+  #     - project_network
       
 networks:
   project_network:
