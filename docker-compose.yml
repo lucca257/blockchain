@@ -1,23 +1,25 @@
 version: "3.7"
 services:
-# frontend:
-#     container_name: frontend
-#     build:
-#       context: ./
-#       dockerfile: docker/app/Dockerfile
-#     hostname: wallet.localhost
-#     volumes:
-#       - ./src:/usr/src/app
-#     ports:
-#       - "3000:3000" 
-#     networks:
-#       - project_network
+  # frontend:
+  #     container_name: frontend
+  #     build:
+  #       context: ./frontend/
+  #       dockerfile: ./Dockerfile
+  #     hostname: wallet.localhost
+  #     volumes:
+  #       - ./frontend/ :/app
+  #     ports:
+  #       - "80:80" 
+  #     networks:
+  #       - project_network
   backend:
       container_name: backend
       build:
         context: ./backend/
         dockerfile: ./Dockerfile
       hostname: api-wallet.localhost
+      volumes:
+        - ./backend:/home/node/app/
       ports:
         - "3000:3000" 
       networks:
