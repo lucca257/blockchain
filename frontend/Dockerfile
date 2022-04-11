@@ -1,14 +1,20 @@
 FROM node:alpine
 
-RUN mkdir -p /usr/src/app/node_modules && chown -R node:node /usr/src/app
+RUN apk add --no-cache bash shadow
+
+RUN echo "PS1='\s-\v \$PWD \$ '" >> /home/node/.bashrc \
+    && mkdir /docker && chown node:node /docker \
+    && mkdir /home/node/app && chown node:node /home/node/app \
+    && usermod -u 1000 node
 
 WORKDIR /home/node/app
 
-RUN npm init -y
- COPY . .
-# COPY ["package.json", "package-lock.json", "./"]
-# RUN npm install -g create-react-app
-# COPY . .
+COPY ["package.json", "package-lock.json", "./"]
 
-# EXPOSE 3000
-# CMD [ "node", "app.js" ]
+RUN npm install
+
+COPY . .
+
+USER node
+EXPOSE 3000
+CMD ["npm", "start"]
