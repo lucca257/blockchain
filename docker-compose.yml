@@ -6,8 +6,8 @@ services:
         context: ./frontend/
         dockerfile: ./Dockerfile
       hostname: wallet.localhost
-      volumes:
-        - ./frontend/:/home/node/app
+      # volumes:
+      #   - ./frontend/:/home/node/app
       ports:
         - "80:3000" 
       networks:
